@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use JustSteveKing\Ollama\DataObjects\Message;
-use JustSteveKing\Ollama\Enums\Role;
-use JustSteveKing\Ollama\Requests\Chat;
-use JustSteveKing\Ollama\Requests\Prompt;
+use App\Models\SupportDocument;
+use App\Services\Ollama\KnowledgeBase;
 use JustSteveKing\Ollama\SDK;
 
 final readonly class Ollama
@@ -17,15 +15,28 @@ final readonly class Ollama
     ) {
     }
 
-    public function ask(string $prompt)
+    public function knowledgeBase(): KnowledgeBase
     {
-        return $this->sdk->generate(
-            prompt: new Prompt(
-                model: 'llama3',
-                prompt: $prompt,
-                format: 'json',
-                stream: false,
-            ),
+        return new KnowledgeBase(
+            ollama: $this,
         );
+    }
+
+    public function sdk(): SDK
+    {
+        return $this->sdk;
+    }
+
+    public function system(): string
+    {
+        $documents = SupportDocument::query()->get();
+
+        $prompt = '';
+
+        foreach ($documents as $document) {
+            $prompt .= "Question: {$document->question}, Answer: {$document->answer}\n";
+        }
+
+        return "This is the contents of the knowledge base: {$prompt}";
     }
 }

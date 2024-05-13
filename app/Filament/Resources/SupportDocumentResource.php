@@ -4,34 +4,31 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AmenityResource\Pages;
-use App\Models\Amenity;
+use App\Filament\Resources\SupportDocumentResource\Pages;
+use App\Models\SupportDocument;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-final class AmenityResource extends Resource
+final class SupportDocumentResource extends Resource
 {
-    protected static ?string $model = Amenity::class;
+    protected static ?string $model = SupportDocument::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('question')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('label')
+                Forms\Components\Textarea::make('answer')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('icon')
                     ->columnSpanFull(),
+                Forms\Components\TextInput::make('tags'),
             ]);
     }
 
@@ -41,11 +38,7 @@ final class AmenityResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID'),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('label')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('question')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -79,9 +72,9 @@ final class AmenityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAmenities::route('/'),
-            'create' => Pages\CreateAmenity::route('/create'),
-            'edit' => Pages\EditAmenity::route('/{record}/edit'),
+            'index' => Pages\ListSupportDocuments::route('/'),
+            'create' => Pages\CreateSupportDocument::route('/create'),
+            'edit' => Pages\EditSupportDocument::route('/{record}/edit'),
         ];
     }
 }

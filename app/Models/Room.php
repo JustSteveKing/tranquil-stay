@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -30,6 +31,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property null|CarbonInterface $updated_at
  * @property Floor $floor
  * @property Collection<Booking> $bookings
+ * @property Collection<Amenity> $amenities
  */
 final class Room extends Model
 {
@@ -66,6 +68,15 @@ final class Room extends Model
         return $this->hasMany(
             related: Booking::class,
             foreignKey: 'room_id',
+        );
+    }
+
+    /** @return BelongsToMany<Amenity> */
+    public function amenities(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            related: Amenity::class,
+            table: 'amenity_room',
         );
     }
 

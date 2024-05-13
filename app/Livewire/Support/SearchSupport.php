@@ -17,7 +17,9 @@ final class SearchSupport extends Component
 
     public function submit(Ollama $ollama): void
     {
-        $this->response = $ollama->ask($this->prompt)->response;
+        $this->response = $ollama->knowledgeBase()->ask(
+            prompt: $this->prompt
+        )->response;
     }
 
     public function render(Factory $factory): View

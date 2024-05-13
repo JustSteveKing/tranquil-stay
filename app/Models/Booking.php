@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $id
- * @property int $guests
  * @property int $cost
  * @property string $room_id
  * @property string $user_id

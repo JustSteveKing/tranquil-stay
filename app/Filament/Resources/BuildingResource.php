@@ -1,23 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BuildingResource\Pages;
-use App\Filament\Resources\BuildingResource\RelationManagers;
 use App\Models\Building;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BuildingResource extends Resource
+final class BuildingResource extends Resource
 {
     protected static ?string $model = Building::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
 
     public static function form(Form $form): Form
     {
@@ -54,10 +53,11 @@ class BuildingResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -69,7 +69,7 @@ class BuildingResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 
@@ -78,6 +78,7 @@ class BuildingResource extends Resource
         return [
             'index' => Pages\ListBuildings::route('/'),
             'create' => Pages\CreateBuilding::route('/create'),
+            'view' => Pages\ViewBuilding::route('/{record}'),
             'edit' => Pages\EditBuilding::route('/{record}/edit'),
         ];
     }

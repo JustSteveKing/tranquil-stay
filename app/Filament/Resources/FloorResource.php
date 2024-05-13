@@ -1,23 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FloorResource\Pages;
-use App\Filament\Resources\FloorResource\RelationManagers;
 use App\Models\Floor;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class FloorResource extends Resource
+final class FloorResource extends Resource
 {
     protected static ?string $model = Floor::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-square-3-stack-3D';
 
     public static function form(Form $form): Form
     {
@@ -58,10 +57,11 @@ class FloorResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -73,7 +73,7 @@ class FloorResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 
@@ -82,6 +82,7 @@ class FloorResource extends Resource
         return [
             'index' => Pages\ListFloors::route('/'),
             'create' => Pages\CreateFloor::route('/create'),
+            'view' => Pages\ViewFloor::route('/{record}'),
             'edit' => Pages\EditFloor::route('/{record}/edit'),
         ];
     }
