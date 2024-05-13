@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\BookingStatus;
 use App\Models\Booking;
 use App\Models\Room;
 use App\Models\User;
@@ -24,6 +25,7 @@ final class BookingFactory extends Factory
                 int1: 1_000,
                 int2: 5_000,
             ),
+            'status' => BookingStatus::Pending,
             'room_id' => Room::factory(),
             'user_id' => User::factory(),
             'starts_at' => $start = Carbon::parse(

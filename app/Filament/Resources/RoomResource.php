@@ -19,6 +19,11 @@ final class RoomResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-key';
 
+    public static function getNavigationBadge(): string
+    {
+        return (string) Room::query()->count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -76,6 +81,7 @@ final class RoomResource extends Resource
                 Tables\Columns\TextColumn::make('accessible')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
+                    ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('sleeps')
                     ->numeric()

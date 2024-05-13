@@ -25,10 +25,10 @@ final class SupportDocumentResource extends Resource
                 Forms\Components\TextInput::make('question')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('answer')
+                Forms\Components\TagsInput::make('tags'),
+                Forms\Components\RichEditor::make('answer')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('tags'),
             ]);
     }
 
@@ -36,8 +36,6 @@ final class SupportDocumentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID'),
                 Tables\Columns\TextColumn::make('question')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

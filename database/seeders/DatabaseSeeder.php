@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Booking;
 use App\Models\Building;
 use App\Models\Floor;
 use App\Models\Role;
@@ -34,7 +35,11 @@ final class DatabaseSeeder extends Seeder
 
             Floor::factory()->for($building)->count(4)->create()->each(
                 callback: function (Floor $floor): void {
-                    Room::factory()->for($floor)->count(20)->create();
+                    Room::factory()->for($floor)->count(20)->create()->each(
+                        callback: function (Room $room): void {
+                            Booking::factory()->for($room)->count(2)->create();
+                        },
+                    );
                 },
             );
         }
