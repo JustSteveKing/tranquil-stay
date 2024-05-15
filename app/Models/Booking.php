@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\BookingStatus;
-use App\Exceptions\InvalidStateException;
+use App\Observers\BookingObserver;
 use App\StateMachines\Reservations\BaseBookingStateMachine;
 use App\StateMachines\Reservations\CancelledState;
 use App\StateMachines\Reservations\CheckedInState;
@@ -16,6 +16,7 @@ use App\StateMachines\Reservations\PaidState;
 use App\StateMachines\Reservations\PendingState;
 use App\StateMachines\Reservations\RefundedState;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,6 +38,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property User $user
  * @property Collection<Guest> $guests
  */
+#[ObservedBy(classes: BookingObserver::class)]
 final class Booking extends Model
 {
     use HasFactory;

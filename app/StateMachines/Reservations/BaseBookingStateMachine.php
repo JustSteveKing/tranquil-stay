@@ -11,7 +11,8 @@ abstract class BaseBookingStateMachine implements BookingStateContract
 {
     public function __construct(
         protected Booking $booking,
-    ) {}
+    ) {
+    }
 
     public function pending(): never
     {
