@@ -71,4 +71,9 @@ final readonly class Engine implements EngineContract
 
         return $this->room->daily_rate * $length;
     }
+
+    public function checkIn(Booking $booking): void
+    {
+        $booking->state()->checkedIn();
+    }
 }

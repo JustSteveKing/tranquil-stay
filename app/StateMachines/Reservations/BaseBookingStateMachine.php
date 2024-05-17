@@ -14,56 +14,56 @@ abstract class BaseBookingStateMachine implements BookingStateContract
     ) {
     }
 
-    public function pending(): never
+    public function pending()
     {
         throw new InvalidStateException(
             message: 'Cannot transition to the [pending] state.',
         );
     }
 
-    public function confirmed(): never
+    public function confirmed()
     {
         throw new InvalidStateException(
             message: 'Cannot transition to the [confirmed] state.',
         );
     }
 
-    public function paid(): never
+    public function paid()
     {
         throw new InvalidStateException(
             message: 'Cannot transition to the [paid] state.',
         );
     }
 
-    public function checkedIn(): never
+    public function checkedIn()
     {
         throw new InvalidStateException(
             message: 'Cannot transition to the [checked-in] state.',
         );
     }
 
-    public function checkedOut(): never
+    public function checkedOut()
     {
         throw new InvalidStateException(
             message: 'Cannot transition to the [checked-out] state.',
         );
     }
 
-    public function cancelled(): never
+    public function cancelled()
     {
         throw new InvalidStateException(
             message: 'Cannot transition to the [cancelled] state.',
         );
     }
 
-    public function refunded(): never
+    public function refunded()
     {
         throw new InvalidStateException(
             message: 'Cannot transition to the [refunded] state.',
         );
     }
 
-    public function finalized(): never
+    public function finalized()
     {
         throw new InvalidStateException(
             message: 'Cannot transition to the [finalized] state.',

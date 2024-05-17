@@ -26,6 +26,7 @@ final class BookingFactory extends Factory
                 int2: 5_000,
             ),
             'status' => BookingStatus::Pending,
+            'check_in_code' => null,
             'room_id' => Room::factory(),
             'user_id' => User::factory(),
             'starts_at' => $start = Carbon::parse(

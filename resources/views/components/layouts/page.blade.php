@@ -13,6 +13,7 @@
 
     @vite(['resources/css/app.css','resources/js/app.js'])
     <livewire:styles />
+    @paddleJS
 </head>
 <body class="h-full antialiased font-sans text-slate-900 dark:text-slate-50">
     {{ $slot }}

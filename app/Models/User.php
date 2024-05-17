@@ -17,6 +17,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Paddle\Billable;
+use Laravel\Paddle\Transaction;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property string $id
@@ -28,6 +31,8 @@ use Illuminate\Notifications\Notifiable;
  * @property null|CarbonInterface $created_at
  * @property null|CarbonInterface $updated_at
  * @property null|CarbonInterface $deleted_at
+ * @property Customer $customer
+ * @property Collection<Transaction> $transactions
  * @property Collection<Booking> $bookings
  * @property Collection<Guest> $guest
  */
@@ -35,6 +40,8 @@ use Illuminate\Notifications\Notifiable;
 final class User extends Authenticatable implements FilamentUser
 {
     use Authorizable;
+    use Billable;
+    use HasApiTokens;
     use HasFactory;
     use HasUuids;
     use Notifiable;

@@ -14,6 +14,8 @@ return new class () extends Migration {
             $table->uuid('id')->primary();
 
             $table->string('status')->default(BookingStatus::Pending->value);
+            $table->string('check_in_code')->nullable();
+
             $table->unsignedBigInteger('cost');
 
             $table

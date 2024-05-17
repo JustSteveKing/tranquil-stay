@@ -23,10 +23,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 /**
  * @property string $id
  * @property BookingStatus $status
+ * @property null|string $check_in_code
  * @property int $cost
  * @property string $room_id
  * @property string $user_id
@@ -47,6 +49,7 @@ final class Booking extends Model
     /** @var array<int,string> */
     protected $fillable = [
         'status',
+        'check_in_code',
         'cost',
         'room_id',
         'user_id',
@@ -109,6 +112,13 @@ final class Booking extends Model
                 booking: $this,
             ),
         };
+    }
+
+    public function generateCheckInCode(): string
+    {
+        return Str::random(
+            length: 6,
+        );
     }
 
     /** @return array<string,string|class-string> */
